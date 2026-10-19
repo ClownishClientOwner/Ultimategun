@@ -1,6 +1,7 @@
-
 plugins {
-    id 'fabric-loom' version '1.14-SNAPSHOT'
+    // 1. Changed to the explicit obfuscated remap ID and pinned a stable version 
+    // compatible with Gradle 8.14 instead of using unstable SNAPSHOTs.
+    id 'net.fabricmc.fabric-loom-remap' version '1.14.10'
 }
 
 version = '1.0.0'
@@ -12,6 +13,8 @@ base {
 
 repositories {
     mavenCentral()
+    // 2. Added the Fabric repository so your toolchain can find Loom and its dependencies
+    maven { url = 'https://maven.fabricmc.net/' } 
 }
 
 dependencies {
