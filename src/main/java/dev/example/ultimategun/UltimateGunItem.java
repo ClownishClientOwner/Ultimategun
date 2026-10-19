@@ -21,25 +21,19 @@ public class UltimateGunItem extends Item {
     public ActionResult use(
         World world, PlayerEntity user, Hand hand
     ) {
-        ItemStack stack = user.getStackInHand(hand);
-
         if (!world.isClient) {
             Vec3d look = user.getRotationVec(1.0F);
-            Vec3d target = user.getEyePos()
-                .add(look.multiply(12.0));
+            Vec3d origin = user.getEyePos();
+            Vec3d target = origin.add(look.multiply(12.0));
 
             for (int i = 0; i < 24; i++) {
                 double t = i / 24.0;
-                double x = user.getEyePos().x
-                    + (target.x - user.getEyePos().x) * t;
-                double y = user.getEyePos().y
-                    + (target.y - user.getEyePos().y) * t;
-                double z = user.getEyePos().z
-                    + (target.z - user.getEyePos().z) * t;
-
                 world.spawnParticles(
                     ParticleTypes.END_ROD,
-                    x, y, z, 2, 0.08, 0.08, 0.08, 0.01
+                    origin.x + (target.x - origin.x) * t,
+                    origin.y + (target.y - origin.y) * t,
+                    origin.z + (target.z - origin.z) * t,
+                    2, 0.08, 0.08, 0.08, 0.01
                 );
             }
 
